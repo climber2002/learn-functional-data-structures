@@ -62,4 +62,19 @@ object BinTree {
     case Leaf => Nil
     case Branch(v, l, r) => postorder(l) ++ postorder(r) ++ List(v)
   }
+
+  def preorderAcc[A](tree: BinTree[A], acc: List[A]): List[A] = tree match {
+    case Leaf => acc
+    case Branch(v, l, r) => v :: preorderAcc(l, preorderAcc(r, acc))
+  }
+
+  def inorderAcc[A](tree: BinTree[A], acc: List[A]): List[A] = tree match {
+    case Leaf => acc
+    case Branch(v, l, r) => inorderAcc(l, v :: inorderAcc(r, acc))
+  }
+
+  def postorderAcc[A](tree: BinTree[A], acc: List[A]): List[A] = tree match {
+    case Leaf => acc
+    case Branch(v, l, r) => postorderAcc(l, postorderAcc(r, v :: acc))
+  }
 }
